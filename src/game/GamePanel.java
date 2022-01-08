@@ -34,6 +34,14 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
     }
 
+    public int getMaxScreenColumn() {
+        return maxScreenColumn;
+    }
+
+    public int getMaxScreenRow() {
+        return maxScreenRow;
+    }
+
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
