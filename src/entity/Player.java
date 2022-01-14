@@ -93,10 +93,9 @@ public class Player extends Entity{
                         break;
                 }
             }
-            // If collision is true, player can move
-
 
             spriteCounter++;
+
             if(spriteCounter>12) { // player image refreshes every 12 frames
                 if(spriteNum == 1) {
                     spriteNum = 2;
@@ -108,6 +107,7 @@ public class Player extends Entity{
             }
         }
     }
+
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
         switch (direction) {
