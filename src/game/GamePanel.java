@@ -20,7 +20,7 @@ public class GamePanel extends JPanel implements Runnable {
     final int maxWorldColumn = 50;
     final int maxWorldRow = 50;
     final int worldWidth = tileSize * maxScreenColumn;
-    final int worldHeight = tileSize * maxScreenColumn;
+    final int worldHeight = tileSize * maxScreenRow;
 
     Thread gameThread;
     CollisionChecker collisionChecker = new CollisionChecker(this);

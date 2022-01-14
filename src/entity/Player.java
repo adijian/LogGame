@@ -24,10 +24,10 @@ public class Player extends Entity{
         screenY = gamePanel.getScreenHeight()/2 - (gamePanel.getTileSize()/2);
 
         solidArea = new Rectangle();
-        solidArea.x = 8;
-        solidArea.y = 16;
-        solidArea.width = 32;
-        solidArea.height = 32;
+        solidArea.x = 6;
+        solidArea.y = 20;
+        solidArea.width = 28;
+        solidArea.height = 28;
 
         setDefaultValues();
         getPlayerImage();
@@ -35,8 +35,8 @@ public class Player extends Entity{
     }
 
     public void setDefaultValues() {
-        worldX = gamePanel.getTileSize() * 10; // starting positions
-        worldY = gamePanel.getTileSize() * 10;
+        worldX = gamePanel.getTileSize() * 23; // starting positions
+        worldY = gamePanel.getTileSize() * 21;
         speed = 2;
         direction = "down";
     }

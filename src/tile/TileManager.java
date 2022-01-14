@@ -99,7 +99,7 @@ public class TileManager {
 
             worldColumn++;
 
-            if(worldColumn == gamePanel.getMaxScreenColumn()) {
+            if(worldColumn == gamePanel.getMaxWorldColumn()) {
                 worldColumn = 0;
                 worldRow++;
             }
