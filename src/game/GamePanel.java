@@ -11,18 +11,24 @@ public class GamePanel extends JPanel implements Runnable {
     final int originalTileSize = 16;
     final int scale = 3;
 
-    public final int tileSize = originalTileSize * scale;
+    final int tileSize = originalTileSize * scale;
     final int maxScreenColumn = 16;
     final int maxScreenRow = 12;
     final int screenWidth = tileSize * maxScreenColumn;
     final int screenHeight = tileSize * maxScreenRow;
+
+    final int maxWorldColumn = 50;
+    final int maxWorldRow = 50;
+    final int worldWidth = tileSize * maxScreenColumn;
+    final int worldHeight = tileSize * maxScreenColumn;
+
 
     Thread gameThread;
     KeyHandler keyHandler = new KeyHandler();
 
     int FPS = 144;
 
-    Player player = new Player(this, keyHandler);
+    public Player player = new Player(this, keyHandler);
 
     TileManager tileManager = new TileManager(this);
 
@@ -34,12 +40,44 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
     }
 
+    public int getWorldHeight() {
+        return worldHeight;
+    }
+
+    public int getWorldWidth() {
+        return worldWidth;
+    }
+
+    public int getMaxWorldColumn() {
+        return maxWorldColumn;
+    }
+
+    public int getMaxWorldRow() {
+        return maxWorldRow;
+    }
+
+    public int getTileSize() {
+        return tileSize;
+    }
+
     public int getMaxScreenColumn() {
         return maxScreenColumn;
     }
 
     public int getMaxScreenRow() {
         return maxScreenRow;
+    }
+
+    public int getScreenHeight() {
+        return screenHeight;
+    }
+
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public void startGameThread() {
