@@ -13,8 +13,8 @@ public class Player extends Entity{
     GamePanel gamePanel;
     KeyHandler keyHandler;
 
-    public final int screenX;
-    public final int screenY;
+    final int screenX;
+    final int screenY;
 
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         this.gamePanel = gamePanel;
@@ -52,20 +52,20 @@ public class Player extends Entity{
 
     public void update(){
 
-        if(keyHandler.upPressed || keyHandler.downPressed || keyHandler.leftPressed || keyHandler.rightPressed) {
-            if(keyHandler.upPressed) {
+        if(keyHandler.isUpPressed() || keyHandler.isDownPressed() || keyHandler.isLeftPressed() || keyHandler.isRightPressed()) {
+            if(keyHandler.isUpPressed()) {
                 direction = "up";
                 worldY -= speed;
             }
-            else if(keyHandler.downPressed) {
+            else if(keyHandler.isDownPressed()) {
                 direction = "down";
                 worldY += speed;
             }
-            else if(keyHandler.leftPressed) {
+            else if(keyHandler.isLeftPressed()) {
                 direction = "left";
                 worldX -= speed;
             }
-            else if(keyHandler.rightPressed) {
+            else if(keyHandler.isRightPressed()) {
                 direction = "right";
                 worldX += speed;
             }
@@ -119,4 +119,14 @@ public class Player extends Entity{
         }
         g2.drawImage(image, screenX, screenY, gamePanel.getTileSize(), gamePanel.getTileSize(), null);
     }
+
+    public int getScreenX() {
+        return screenX;
+    }
+
+    public int getScreenY() {
+        return screenY;
+    }
+
+
 }
