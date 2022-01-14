@@ -23,8 +23,15 @@ public class Player extends Entity{
         screenX = gamePanel.getScreenWidth()/2 - (gamePanel.getTileSize()/2);
         screenY = gamePanel.getScreenHeight()/2 - (gamePanel.getTileSize()/2);
 
+        solidArea = new Rectangle();
+        solidArea.x = 8;
+        solidArea.y = 16;
+        solidArea.width = 32;
+        solidArea.height = 32;
+
         setDefaultValues();
         getPlayerImage();
+
     }
 
     public void setDefaultValues() {
@@ -55,20 +62,40 @@ public class Player extends Entity{
         if(keyHandler.isUpPressed() || keyHandler.isDownPressed() || keyHandler.isLeftPressed() || keyHandler.isRightPressed()) {
             if(keyHandler.isUpPressed()) {
                 direction = "up";
-                worldY -= speed;
             }
             else if(keyHandler.isDownPressed()) {
                 direction = "down";
-                worldY += speed;
             }
             else if(keyHandler.isLeftPressed()) {
                 direction = "left";
-                worldX -= speed;
             }
             else if(keyHandler.isRightPressed()) {
                 direction = "right";
-                worldX += speed;
             }
+            // Check tile collision
+            collisionOn = false;
+            gamePanel.getCollisionChecker().checkTile(this);
+
+            // If collision is false, player can move
+            if(!isCollisionOn()) {
+                switch (direction) {
+                    case "up":
+                        worldY -= speed;
+                        break;
+                    case "down":
+                        worldY += speed;
+                        break;
+                    case "left":
+                        worldX -= speed;
+                        break;
+                    case "right":
+                        worldX += speed;
+                        break;
+                }
+            }
+            // If collision is true, player can move
+
+
             spriteCounter++;
             if(spriteCounter>12) { // player image refreshes every 12 frames
                 if(spriteNum == 1) {

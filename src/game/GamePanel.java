@@ -22,8 +22,8 @@ public class GamePanel extends JPanel implements Runnable {
     final int worldWidth = tileSize * maxScreenColumn;
     final int worldHeight = tileSize * maxScreenColumn;
 
-
     Thread gameThread;
+    CollisionChecker collisionChecker = new CollisionChecker(this);
     KeyHandler keyHandler = new KeyHandler();
 
     int FPS = 144;
@@ -46,6 +46,14 @@ public class GamePanel extends JPanel implements Runnable {
 
     public int getWorldWidth() {
         return worldWidth;
+    }
+
+    public CollisionChecker getCollisionChecker() {
+        return collisionChecker;
+    }
+
+    public TileManager getTileManager() {
+        return tileManager;
     }
 
     public int getMaxWorldColumn() {

@@ -29,12 +29,15 @@ public class TileManager {
             tile[0].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles1/grass.png")));
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles1/wall.png")));
+            tile[1].collision = true;
             tile[2] = new Tile();
             tile[2].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles1/water.png")));
+            tile[2].collision = true;
             tile[3] = new Tile();
             tile[3].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles1/earth.png")));
             tile[4] = new Tile();
             tile[4].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles1/tree.png")));
+            tile[4].collision = true;
             tile[5] = new Tile();
             tile[5].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles1/sand.png")));
         } catch(IOException e){
@@ -101,5 +104,13 @@ public class TileManager {
                 worldRow++;
             }
         }
+    }
+
+    public int[][] getMapTileNum() {
+        return mapTileNum;
+    }
+
+    public Tile[] getTile() {
+        return tile;
     }
 }
