@@ -31,7 +31,6 @@ public class GamePanel extends JPanel implements Runnable {
     CollisionChecker collisionChecker = new CollisionChecker(this);
     KeyHandler keyHandler = new KeyHandler();
     SuperObject[] object = new SuperObject[30];
-    SuperObject[] treeDown = new SuperObject[10];
     AssetSetter assetSetter = new AssetSetter(this);
     UI ui = new UI(this);
 
@@ -174,13 +173,5 @@ public class GamePanel extends JPanel implements Runnable {
 
     public int getDrawCount() {
         return drawCount;
-    }
-
-    public SuperObject[] getTreeDown() {
-        return treeDown;
-    }
-
-    public void setTreeDown(SuperObject[] treeDown) {
-        this.treeDown = treeDown;
     }
 }
