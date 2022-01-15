@@ -26,6 +26,8 @@ public class Player extends Entity{
         solidArea = new Rectangle();
         solidArea.x = 6;
         solidArea.y = 20;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
         solidArea.width = 28;
         solidArea.height = 28;
 
@@ -75,6 +77,9 @@ public class Player extends Entity{
             // Check tile collision
             collisionOn = false;
             gamePanel.getCollisionChecker().checkTile(this);
+
+            // Check object collision
+            int objectIndex = gamePanel.getCollisionChecker().checkObject(this, true);
 
             // If collision is false, player can move
             if(!isCollisionOn()) {

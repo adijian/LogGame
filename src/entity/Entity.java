@@ -12,6 +12,7 @@ public class Entity {
     int spriteNum = 1;
     Rectangle solidArea;
     boolean collisionOn = false;
+    int solidAreaDefaultX, solidAreaDefaultY;
 
     public int getWorldX() {
         return worldX;
@@ -39,5 +40,13 @@ public class Entity {
 
     public int getSpeed() {
         return speed;
+    }
+
+    public int getSolidAreaDefaultY() {
+        return solidAreaDefaultY;
+    }
+
+    public int getSolidAreaDefaultX() {
+        return solidAreaDefaultX;
     }
 }

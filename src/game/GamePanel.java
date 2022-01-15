@@ -1,6 +1,7 @@
 package game;
 
 import entity.Player;
+import object.SuperObject;
 import tile.TileManager;
 
 import javax.swing.*;
@@ -25,6 +26,8 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     CollisionChecker collisionChecker = new CollisionChecker(this);
     KeyHandler keyHandler = new KeyHandler();
+    SuperObject[] object = new SuperObject[10];
+    AssetSetter assetSetter = new AssetSetter(this);
 
     int FPS = 144;
 
@@ -38,6 +41,14 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
+    }
+    public void setupGame() {
+        // Call objects
+        assetSetter.setObject();
+    }
+
+    public SuperObject[] getObject() {
+        return object;
     }
 
     public int getWorldHeight() {
@@ -101,6 +112,11 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         tileManager.draw(g2);
+        for(int i = 0;i< getObject().length;i++) {
+            if(getObject()[i] != null) {
+                getObject()[i].draw(g2, this);
+            }
+        }
         player.draw(g2);
         g2.dispose();
     }

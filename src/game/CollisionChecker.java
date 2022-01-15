@@ -59,4 +59,52 @@ public class CollisionChecker {
                 break;
         }
     }
+
+    public int checkObject(Entity entity, boolean player) {
+        int index = 999;
+
+        for(int i = 0; i<gamePanel.getObject().length; i++) {
+            if (gamePanel.getObject()[i] != null) {
+                //Get entity's solid area position
+                entity.getSolidArea().x = entity.getWorldX() + entity.getSolidArea().x;
+                entity.getSolidArea().y = entity.getWorldY() + entity.getSolidArea().y;
+
+                //Get the object's solid area position
+                gamePanel.getObject()[i].getSolidArea().x = gamePanel.getObject()[i].getWorldX() + gamePanel.getObject()[i].getSolidArea().x;
+                gamePanel.getObject()[i].getSolidArea().y = gamePanel.getObject()[i].getWorldY() + gamePanel.getObject()[i].getSolidArea().y;
+
+                switch (entity.getDirection()) {
+                    case "up":
+                        entity.getSolidArea().y -= entity.getSpeed();
+                        if (entity.getSolidArea().intersects(gamePanel.getObject()[i].getSolidArea())) {
+                            System.out.println("up collision");
+                        }
+                        break;
+                    case "down":
+                        entity.getSolidArea().y += entity.getSpeed();
+                        if (entity.getSolidArea().intersects(gamePanel.getObject()[i].getSolidArea())) {
+                            System.out.println("down collision");
+                        }
+                        break;
+                    case "left":
+                        entity.getSolidArea().x -= entity.getSpeed();
+                        if (entity.getSolidArea().intersects(gamePanel.getObject()[i].getSolidArea())) {
+                            System.out.println("left collision");
+                        }
+                        break;
+                    case "right":
+                        entity.getSolidArea().x += entity.getSpeed();
+                        if (entity.getSolidArea().intersects(gamePanel.getObject()[i].getSolidArea())) {
+                            System.out.println("right collision");
+                            break;
+                        }
+                }
+                entity.getSolidArea().x = entity.getSolidAreaDefaultX();
+                entity.getSolidArea().y = entity.getSolidAreaDefaultY();
+                gamePanel.getObject()[i].getSolidArea().x = gamePanel.getObject()[i].getSolidAreaDefaultX();
+                gamePanel.getObject()[i].getSolidArea().y = gamePanel.getObject()[i].getSolidAreaDefaultY();
+            }
+        }
+        return index;
+    }
 }
