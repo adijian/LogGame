@@ -9,6 +9,7 @@ public class ObjectTree extends SuperObject{
         name = "Tree";
         hp = 3;
         hitsTaken = 0;
+        treeResetTimer = 0;
         try {
             image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/tree2.png")));
         } catch(IOException e) {

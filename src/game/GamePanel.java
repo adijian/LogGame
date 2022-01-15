@@ -4,8 +4,11 @@ import entity.Player;
 import object.SuperObject;
 import tile.TileManager;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.util.Objects;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -13,8 +16,8 @@ public class GamePanel extends JPanel implements Runnable {
     final int scale = 3;
 
     final int tileSize = originalTileSize * scale;
-    final int maxScreenColumn = 16;
-    final int maxScreenRow = 12;
+    final int maxScreenColumn = 40;
+    final int maxScreenRow = 23;
     final int screenWidth = tileSize * maxScreenColumn;
     final int screenHeight = tileSize * maxScreenRow;
     int drawCount = 0;
@@ -28,6 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
     CollisionChecker collisionChecker = new CollisionChecker(this);
     KeyHandler keyHandler = new KeyHandler();
     SuperObject[] object = new SuperObject[30];
+    SuperObject[] treeDown = new SuperObject[10];
     AssetSetter assetSetter = new AssetSetter(this);
     UI ui = new UI(this);
 
@@ -47,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame() {
         // Call objects
-        assetSetter.setObject();
+//        assetSetter.setObject();
         assetSetter.setTrees();
     }
 
@@ -55,15 +59,31 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         tileManager.draw(g2);
-        for(int i = 0;i< getObject().length;i++) {
+
+        for(int i = 0;i < getObject().length;i++) {
             if(getObject()[i] != null) {
                 getObject()[i].draw(g2, this);
             }
         }
 
-        if(drawCount> 140) {
-            ui.showFPS(drawCount, g2);
-        } else {ui.showFPS(144, g2);}
+        for(SuperObject obj : object) {
+            if(obj!=null) {
+                if(obj.isTreeDown() && obj.getTreeResetTimer() > 0) {
+                    obj.setTreeResetTimer(obj.getTreeResetTimer() - 1);
+                }
+                if(obj.isTreeDown() && obj.getTreeResetTimer() <= 0) {
+                    obj.setTreeDown(false);
+                    obj.setTreeResetTimer(0);
+
+                    try {
+                        obj.setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/tree2.png"))));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        System.out.println("Image doesn't exist");
+                    }
+                }
+            }
+        }
 
         player.draw(g2);
         ui.draw(g2);
@@ -85,13 +105,18 @@ public class GamePanel extends JPanel implements Runnable {
             lastTime = currentTime;
 
             if (delta >= 1) {
-                update();
+                try {
+                    update();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 repaint();
                 delta--;
                 drawCount++;
             }
 
             if(timer >= 1000000000) {
+                ui.setFps(drawCount);
                 drawCount = 0;
                 timer = 0;
             }
@@ -139,7 +164,7 @@ public class GamePanel extends JPanel implements Runnable {
         return player;
     }
 
-    public void update(){
+    public void update() throws IOException {
         player.update();
     }
 
@@ -149,5 +174,13 @@ public class GamePanel extends JPanel implements Runnable {
 
     public int getDrawCount() {
         return drawCount;
+    }
+
+    public SuperObject[] getTreeDown() {
+        return treeDown;
+    }
+
+    public void setTreeDown(SuperObject[] treeDown) {
+        this.treeDown = treeDown;
     }
 }

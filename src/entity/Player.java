@@ -61,7 +61,7 @@ public class Player extends Entity{
         }
     }
 
-    public void update(){
+    public void update() throws IOException {
 
         if(keyHandler.isUpPressed() || keyHandler.isDownPressed() || keyHandler.isLeftPressed() || keyHandler.isRightPressed()) {
             if(keyHandler.isUpPressed()) {
@@ -155,7 +155,7 @@ public class Player extends Entity{
         g2.drawImage(image, screenX, screenY, gamePanel.getTileSize(), gamePanel.getTileSize(), null);
     }
 
-    public void pickUpObject(int i) {
+    public void pickUpObject(int i) throws IOException {
         if(i != 999) {
             String objectName = gamePanel.getObject()[i].getName();
 
@@ -199,9 +199,14 @@ public class Player extends Entity{
                     }
                     if (gamePanel.getObject()[i].getHp() <= 0){
                         gamePanel.getObject()[i].setHitsTaken(0);
-                        gamePanel.getObject()[i] = null;
+                        gamePanel.getObject()[i].setTreeResetTimer(300);
+                        gamePanel.getObject()[i].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles1/grass.png"))));
+//                        gamePanel.getObject()[i] = null;
                         gamePanel.getUi().showMessage("Tree down!");
-                        gamePanel.getPlayer().setTreesCollected(gamePanel.getPlayer().getTreesCollected()+1);
+                        if(!gamePanel.getObject()[i].isTreeDown()) {
+                            gamePanel.getPlayer().setTreesCollected(gamePanel.getPlayer().getTreesCollected() + 1);
+                        }
+                        gamePanel.getObject()[i].setTreeDown(true);
                     }
                     break;
             }

@@ -16,6 +16,8 @@ public class SuperObject {
     int solidAreaDefaultY = 0;
     int hp;
     int hitsTaken;
+    int treeResetTimer;
+    boolean treeDown = false;
 
     public void draw(Graphics2D g2, GamePanel gamePanel) {
         int screenX = worldX - gamePanel.getPlayer().getWorldX() + gamePanel.getPlayer().getScreenX();
@@ -32,6 +34,10 @@ public class SuperObject {
 
     public BufferedImage getImage() {
         return image;
+    }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
     }
 
     public String getName() {
@@ -88,5 +94,20 @@ public class SuperObject {
 
     public void setHitsTaken(int hitsTaken) {
         this.hitsTaken = hitsTaken;
+    }
+    public void setTreeResetTimer(int timer) {
+        this.treeResetTimer = timer;
+    }
+
+    public int getTreeResetTimer() {
+        return treeResetTimer;
+    }
+
+    public void setTreeDown(boolean treeDown) {
+        this.treeDown = treeDown;
+    }
+
+    public boolean isTreeDown() {
+        return treeDown;
     }
 }

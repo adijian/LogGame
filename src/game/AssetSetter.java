@@ -10,6 +10,12 @@ public class AssetSetter {
         this.gamePanel = gamePanel;
     }
 
+    public void createTree(int index, int worldX, int worldY) {
+        gamePanel.getObject()[index] = new ObjectTree();
+        gamePanel.getObject()[index].setWorldX(worldX * gamePanel.getTileSize());
+        gamePanel.getObject()[index].setWorldY(worldY * gamePanel.getTileSize());
+    }
+
     public void setObject() {
         gamePanel.getObject()[0] = new ObjectKey();
         gamePanel.getObject()[0].setWorldX(23 * gamePanel.getTileSize());
@@ -45,16 +51,8 @@ public class AssetSetter {
     }
 
     public void setTrees() {
-        gamePanel.getObject()[8] = new ObjectTree();
-        gamePanel.getObject()[8].setWorldX(23 * gamePanel.getTileSize());
-        gamePanel.getObject()[8].setWorldY(22 * gamePanel.getTileSize());
-
-        gamePanel.getObject()[9] = new ObjectTree();
-        gamePanel.getObject()[9].setWorldX(24 * gamePanel.getTileSize());
-        gamePanel.getObject()[9].setWorldY(22 * gamePanel.getTileSize());
-
-        gamePanel.getObject()[10] = new ObjectTree();
-        gamePanel.getObject()[10].setWorldX(25 * gamePanel.getTileSize());
-        gamePanel.getObject()[10].setWorldY(22 * gamePanel.getTileSize());
+        createTree(8,23,22);
+        createTree(9,24,22);
+        createTree(10,25,22);
     }
 }
