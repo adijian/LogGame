@@ -23,6 +23,10 @@ public class SuperObject {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public boolean isCollision() {
         return collision;
     }
@@ -54,6 +58,8 @@ public class SuperObject {
     public Rectangle getSolidArea() {
         return solidArea;
     }
+
+
 
     public void draw(Graphics2D g2, GamePanel gamePanel) {
         int screenX = worldX - gamePanel.getPlayer().getWorldX() + gamePanel.getPlayer().getScreenX();

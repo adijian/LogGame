@@ -1,5 +1,6 @@
 package game;
 
+import object.ObjectBoots;
 import object.ObjectChest;
 import object.ObjectDoor;
 import object.ObjectKey;
@@ -21,7 +22,7 @@ public class AssetSetter {
         gamePanel.getObject()[1].setWorldX(23 * gamePanel.getTileSize());
         gamePanel.getObject()[1].setWorldY(40 * gamePanel.getTileSize());
 
-        gamePanel.getObject()[2] = new ObjectDoor();
+        gamePanel.getObject()[2] = new ObjectKey();
         gamePanel.getObject()[2].setWorldX(37 * gamePanel.getTileSize());
         gamePanel.getObject()[2].setWorldY(7 * gamePanel.getTileSize());
 
@@ -40,5 +41,9 @@ public class AssetSetter {
         gamePanel.getObject()[6] = new ObjectChest();
         gamePanel.getObject()[6].setWorldX(10 * gamePanel.getTileSize());
         gamePanel.getObject()[6].setWorldY(7 * gamePanel.getTileSize());
+
+        gamePanel.getObject()[7] = new ObjectBoots();
+        gamePanel.getObject()[7].setWorldX(37 * gamePanel.getTileSize());
+        gamePanel.getObject()[7].setWorldY(42 * gamePanel.getTileSize());
     }
 }

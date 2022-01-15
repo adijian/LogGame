@@ -12,9 +12,9 @@ import java.util.Objects;
 public class Player extends Entity{
     GamePanel gamePanel;
     KeyHandler keyHandler;
-
     final int screenX;
     final int screenY;
+    int hasKey = 0;
 
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         this.gamePanel = gamePanel;
@@ -80,6 +80,7 @@ public class Player extends Entity{
 
             // Check object collision
             int objectIndex = gamePanel.getCollisionChecker().checkObject(this, true);
+            pickUpObject(objectIndex);
 
             // If collision is false, player can move
             if(!isCollisionOn()) {
@@ -152,6 +153,38 @@ public class Player extends Entity{
         g2.drawImage(image, screenX, screenY, gamePanel.getTileSize(), gamePanel.getTileSize(), null);
     }
 
+    public void pickUpObject(int i) {
+        if(i != 999) {
+            String objectName = gamePanel.getObject()[i].getName();
+
+            switch (objectName) {
+                case "Key":
+                    hasKey++;
+                    gamePanel.getObject()[i] = null;
+                    gamePanel.getUi().showMessage("You got a key!");
+                    break;
+                case "Door":
+                    if(hasKey > 0) {
+                        gamePanel.getObject()[i] = null;
+                        hasKey--;
+                        gamePanel.getUi().showMessage("You opened the door!");
+                    }
+                    else {
+                        gamePanel.getUi().showMessage("You need a key!");
+                    }
+                    break;
+                case "Boots":
+                    speed += 1;
+                    gamePanel.getObject()[i] = null;
+                    gamePanel.getUi().showMessage("You got a boost!");
+                    break;
+                case "Chest":
+                    gamePanel.getUi().setGameFinished(true);
+                    break;
+            }
+        }
+    }
+
     public int getScreenX() {
         return screenX;
     }
@@ -160,5 +193,7 @@ public class Player extends Entity{
         return screenY;
     }
 
-
+    public int getHasKey() {
+        return hasKey;
+    }
 }

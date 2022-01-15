@@ -28,6 +28,7 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyHandler = new KeyHandler();
     SuperObject[] object = new SuperObject[10];
     AssetSetter assetSetter = new AssetSetter(this);
+    UI ui = new UI(this);
 
     int FPS = 144;
 
@@ -42,70 +43,10 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
     }
+
     public void setupGame() {
         // Call objects
         assetSetter.setObject();
-    }
-
-    public SuperObject[] getObject() {
-        return object;
-    }
-
-    public int getWorldHeight() {
-        return worldHeight;
-    }
-
-    public int getWorldWidth() {
-        return worldWidth;
-    }
-
-    public CollisionChecker getCollisionChecker() {
-        return collisionChecker;
-    }
-
-    public TileManager getTileManager() {
-        return tileManager;
-    }
-
-    public int getMaxWorldColumn() {
-        return maxWorldColumn;
-    }
-
-    public int getMaxWorldRow() {
-        return maxWorldRow;
-    }
-
-    public int getTileSize() {
-        return tileSize;
-    }
-
-    public int getMaxScreenColumn() {
-        return maxScreenColumn;
-    }
-
-    public int getMaxScreenRow() {
-        return maxScreenRow;
-    }
-
-    public int getScreenHeight() {
-        return screenHeight;
-    }
-
-    public int getScreenWidth() {
-        return screenWidth;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void startGameThread() {
-        gameThread = new Thread(this);
-        gameThread.start();
-    }
-
-    public void update(){
-        player.update();
     }
 
     public void paintComponent(Graphics g) {
@@ -118,6 +59,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
         player.draw(g2);
+        ui.draw(g2);
         g2.dispose();
     }
 
@@ -149,5 +91,55 @@ public class GamePanel extends JPanel implements Runnable {
                 timer = 0;
             }
         }
+    }
+
+
+    public SuperObject[] getObject() {
+        return object;
+    }
+
+    public CollisionChecker getCollisionChecker() {
+        return collisionChecker;
+    }
+
+    public TileManager getTileManager() {
+        return tileManager;
+    }
+
+    public int getMaxWorldColumn() {
+        return maxWorldColumn;
+    }
+
+    public int getMaxWorldRow() {
+        return maxWorldRow;
+    }
+
+    public int getTileSize() {
+        return tileSize;
+    }
+
+    public int getScreenHeight() {
+        return screenHeight;
+    }
+
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void startGameThread() {
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
+
+    public void update(){
+        player.update();
+    }
+
+    public UI getUi() {
+        return ui;
     }
 }
