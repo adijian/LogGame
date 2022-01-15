@@ -24,13 +24,11 @@ public class GamePanel extends JPanel implements Runnable {
 
     final int maxWorldColumn = 50;
     final int maxWorldRow = 50;
-    final int worldWidth = tileSize * maxScreenColumn;
-    final int worldHeight = tileSize * maxScreenRow;
 
     Thread gameThread;
     CollisionChecker collisionChecker = new CollisionChecker(this);
     KeyHandler keyHandler = new KeyHandler();
-    SuperObject[] object = new SuperObject[30];
+    SuperObject[] object = new SuperObject[5];
     AssetSetter assetSetter = new AssetSetter(this);
     UI ui = new UI(this);
 
@@ -73,6 +71,8 @@ public class GamePanel extends JPanel implements Runnable {
                 if(obj.isTreeDown() && obj.getTreeResetTimer() <= 0) {
                     obj.setTreeDown(false);
                     obj.setTreeResetTimer(0);
+                    obj.setHp(obj.getDefaultTreeHp());
+                    obj.setHitsTaken(0);
 
                     try {
                         obj.setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/tree2.png"))));

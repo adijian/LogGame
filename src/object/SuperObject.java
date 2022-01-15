@@ -15,8 +15,10 @@ public class SuperObject {
     int solidAreaDefaultX = 0;
     int solidAreaDefaultY = 0;
     int hp;
+    int defaultTreeHp = 5;
     int hitsTaken;
     int treeResetTimer;
+    int treeDownResetTimer = 600;
     boolean treeDown = false;
 
     public void draw(Graphics2D g2, GamePanel gamePanel) {
@@ -42,10 +44,6 @@ public class SuperObject {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public boolean isCollision() {
@@ -109,5 +107,13 @@ public class SuperObject {
 
     public boolean isTreeDown() {
         return treeDown;
+    }
+
+    public int getDefaultTreeHp() {
+        return defaultTreeHp;
+    }
+
+    public int treeDownResetTimer() {
+        return this.treeDownResetTimer;
     }
 }
