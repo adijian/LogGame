@@ -15,6 +15,7 @@ public class SuperObject {
     int solidAreaDefaultX = 0;
     int solidAreaDefaultY = 0;
     int hp;
+    int hitsTaken;
 
     public void draw(Graphics2D g2, GamePanel gamePanel) {
         int screenX = worldX - gamePanel.getPlayer().getWorldX() + gamePanel.getPlayer().getScreenX();
@@ -79,5 +80,13 @@ public class SuperObject {
 
     public void setHp(int hp) {
         this.hp = hp;
+    }
+
+    public int getHitsTaken() {
+        return hitsTaken;
+    }
+
+    public void setHitsTaken(int hitsTaken) {
+        this.hitsTaken = hitsTaken;
     }
 }

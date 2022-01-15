@@ -15,7 +15,6 @@ public class Player extends Entity{
     final int screenX;
     final int screenY;
     int hasKey = 0;
-    int hits = 0;
     int hitsDelay = 300;
     int treesCollected = 0;
 
@@ -166,6 +165,7 @@ public class Player extends Entity{
                     gamePanel.getObject()[i] = null;
                     gamePanel.getUi().showMessage("You got a key!");
                     break;
+
                 case "Door":
                     if(hasKey > 0) {
                         gamePanel.getObject()[i] = null;
@@ -176,27 +176,30 @@ public class Player extends Entity{
                         gamePanel.getUi().showMessage("You need a key!");
                     }
                     break;
+
                 case "Boots":
                     speed += 1;
                     gamePanel.getObject()[i] = null;
                     gamePanel.getUi().showMessage("You got a boost!");
                     break;
+
                 case "Chest":
                     gamePanel.getUi().setGameFinished(true);
                     break;
+
                 case "Tree" :
                     if(hitsDelay > 0) {
                         hitsDelay--;
                         gamePanel.getUi().showMessage("Cutting tree...");
                     }
                     if (gamePanel.getObject()[i].getHp() <= 3 && hitsDelay <= 0) {
-                        hits++;
-                        gamePanel.getObject()[i].setHp(gamePanel.getObject()[i].getHp() - hits);
+                        gamePanel.getObject()[i].setHitsTaken(gamePanel.getObject()[i].getHitsTaken() + 1);
+                        gamePanel.getObject()[i].setHp(gamePanel.getObject()[i].getHp() - gamePanel.getObject()[i].getHitsTaken());
                         hitsDelay = 20;
                     }
                     if (gamePanel.getObject()[i].getHp() <= 0){
+                        gamePanel.getObject()[i].setHitsTaken(0);
                         gamePanel.getObject()[i] = null;
-                        hits = 0;
                         gamePanel.getUi().showMessage("Tree down!");
                         gamePanel.getPlayer().setTreesCollected(gamePanel.getPlayer().getTreesCollected()+1);
                     }
