@@ -1,9 +1,6 @@
 package game;
 
-import object.ObjectBoots;
-import object.ObjectChest;
-import object.ObjectDoor;
-import object.ObjectKey;
+import object.*;
 
 public class AssetSetter {
 
@@ -45,5 +42,19 @@ public class AssetSetter {
         gamePanel.getObject()[7] = new ObjectBoots();
         gamePanel.getObject()[7].setWorldX(37 * gamePanel.getTileSize());
         gamePanel.getObject()[7].setWorldY(42 * gamePanel.getTileSize());
+    }
+
+    public void setTrees() {
+        gamePanel.getObject()[8] = new ObjectTree();
+        gamePanel.getObject()[8].setWorldX(23 * gamePanel.getTileSize());
+        gamePanel.getObject()[8].setWorldY(22 * gamePanel.getTileSize());
+
+        gamePanel.getObject()[9] = new ObjectTree();
+        gamePanel.getObject()[9].setWorldX(24 * gamePanel.getTileSize());
+        gamePanel.getObject()[9].setWorldY(22 * gamePanel.getTileSize());
+
+        gamePanel.getObject()[10] = new ObjectTree();
+        gamePanel.getObject()[10].setWorldX(25 * gamePanel.getTileSize());
+        gamePanel.getObject()[10].setWorldY(22 * gamePanel.getTileSize());
     }
 }

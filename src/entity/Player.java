@@ -15,6 +15,9 @@ public class Player extends Entity{
     final int screenX;
     final int screenY;
     int hasKey = 0;
+    int hits = 0;
+    int hitsDelay = 300;
+    int treesCollected = 0;
 
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         this.gamePanel = gamePanel;
@@ -181,6 +184,23 @@ public class Player extends Entity{
                 case "Chest":
                     gamePanel.getUi().setGameFinished(true);
                     break;
+                case "Tree" :
+                    if(hitsDelay > 0) {
+                        hitsDelay--;
+                        gamePanel.getUi().showMessage("Cutting tree...");
+                    }
+                    if (gamePanel.getObject()[i].getHp() <= 3 && hitsDelay <= 0) {
+                        hits++;
+                        gamePanel.getObject()[i].setHp(gamePanel.getObject()[i].getHp() - hits);
+                        hitsDelay = 20;
+                    }
+                    if (gamePanel.getObject()[i].getHp() <= 0){
+                        gamePanel.getObject()[i] = null;
+                        hits = 0;
+                        gamePanel.getUi().showMessage("Tree down!");
+                        gamePanel.getPlayer().setTreesCollected(gamePanel.getPlayer().getTreesCollected()+1);
+                    }
+                    break;
             }
         }
     }
@@ -195,5 +215,13 @@ public class Player extends Entity{
 
     public int getHasKey() {
         return hasKey;
+    }
+
+    public int getTreesCollected() {
+        return treesCollected;
+    }
+
+    public void setTreesCollected(int treesCollected) {
+        this.treesCollected = treesCollected;
     }
 }

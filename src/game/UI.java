@@ -13,6 +13,7 @@ public class UI {
     String message = "";
     int messageCounter = 0;
     boolean gameFinished = false;
+    Graphics2D g2_UI;
 
     public UI(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -25,6 +26,12 @@ public class UI {
     public void showMessage(String text) {
         message = text;
         messageOn = true;
+    }
+
+    public void showFPS(int fps, Graphics2D g2) {
+        g2.setFont(arial_40);
+        g2.setColor(Color.white);
+        g2.drawString("FPS: " + fps, 150,65);
     }
 
     public void draw(Graphics2D g2) {
@@ -49,7 +56,8 @@ public class UI {
             g2.setFont(arial_40);
             g2.setColor(Color.white);
             g2.drawImage(keyImage, gamePanel.getTileSize()/2, gamePanel.getTileSize()/2, gamePanel.getTileSize(), gamePanel.getTileSize(), null);
-            g2.drawString(String.valueOf("x " + gamePanel.getPlayer().getHasKey()), 74,65);
+            g2.drawString("x " + gamePanel.getPlayer().getHasKey(), 74,65);
+            g2.drawString("Logs: " + gamePanel.getPlayer().getTreesCollected(), 32,130);
 
             if(messageOn) {
                 g2.setFont(g2.getFont().deriveFont(30f));
@@ -57,7 +65,7 @@ public class UI {
 
                 messageCounter ++;
 
-                if(messageCounter > 120) {
+                if(messageCounter > 150) {
                     messageCounter = 0;
                     messageOn = false;
                 }
@@ -75,5 +83,9 @@ public class UI {
 
     public void setGameFinished(boolean gameFinished) {
         this.gameFinished = gameFinished;
+    }
+
+    public Graphics2D getG2_UI() {
+        return g2_UI;
     }
 }

@@ -17,6 +17,7 @@ public class GamePanel extends JPanel implements Runnable {
     final int maxScreenRow = 12;
     final int screenWidth = tileSize * maxScreenColumn;
     final int screenHeight = tileSize * maxScreenRow;
+    int drawCount = 0;
 
     final int maxWorldColumn = 50;
     final int maxWorldRow = 50;
@@ -26,7 +27,7 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     CollisionChecker collisionChecker = new CollisionChecker(this);
     KeyHandler keyHandler = new KeyHandler();
-    SuperObject[] object = new SuperObject[10];
+    SuperObject[] object = new SuperObject[30];
     AssetSetter assetSetter = new AssetSetter(this);
     UI ui = new UI(this);
 
@@ -47,6 +48,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() {
         // Call objects
         assetSetter.setObject();
+        assetSetter.setTrees();
     }
 
     public void paintComponent(Graphics g) {
@@ -58,6 +60,11 @@ public class GamePanel extends JPanel implements Runnable {
                 getObject()[i].draw(g2, this);
             }
         }
+
+        if(drawCount> 140) {
+            ui.showFPS(drawCount, g2);
+        } else {ui.showFPS(144, g2);}
+
         player.draw(g2);
         ui.draw(g2);
         g2.dispose();
@@ -69,7 +76,6 @@ public class GamePanel extends JPanel implements Runnable {
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
-        int drawCount = 0;
         int timer = 0;
 
         while(gameThread != null) {
@@ -86,13 +92,16 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
             if(timer >= 1000000000) {
-                System.out.println("FPS: " + drawCount);
                 drawCount = 0;
                 timer = 0;
             }
         }
     }
 
+    public void startGameThread() {
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
 
     public SuperObject[] getObject() {
         return object;
@@ -130,16 +139,15 @@ public class GamePanel extends JPanel implements Runnable {
         return player;
     }
 
-    public void startGameThread() {
-        gameThread = new Thread(this);
-        gameThread.start();
-    }
-
     public void update(){
         player.update();
     }
 
     public UI getUi() {
         return ui;
+    }
+
+    public int getDrawCount() {
+        return drawCount;
     }
 }
