@@ -15,10 +15,11 @@ public class Player extends Entity{
     final int screenX;
     final int screenY;
     int hasKey = 0;
-    int originalHitsDelay = 300;
-    int hitsDelay = 300;
+    int originalHitsDelay = 25; //300 can be changed to debug
+    int hitsDelay;
     int treesCollected = 0;
     float woodcuttingXP;
+    int woodcuttingLevel = 1;
 
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         this.gamePanel = gamePanel;
@@ -34,6 +35,7 @@ public class Player extends Entity{
         solidAreaDefaultY = solidArea.y;
         solidArea.width = 28;
         solidArea.height = 28;
+        hitsDelay = originalHitsDelay;
 
         setDefaultValues();
         getPlayerImage();
@@ -215,6 +217,40 @@ public class Player extends Entity{
         }
     }
 
+    public int LevelChecker(float xp, int level) {
+        if(xp > 0 && xp < 83) {
+            level = 1;
+        }
+        if(xp > 83 && xp < 174) {
+            level = 2;
+        }
+        if(xp > 174 && xp < 276) {
+            level = 3;
+        }
+        if(xp > 276 && xp < 388) {
+            level = 4;
+        }
+        if(xp > 388 && xp < 512) {
+            level = 5;
+        }
+        if(xp > 512 && xp < 650) {
+            level = 6;
+        }
+        if(xp > 650 && xp < 801) {
+            level = 7;
+        }
+        if(xp > 801 && xp < 969) {
+            level = 8;
+        }
+        if(xp > 969 && xp < 1154) {
+            level = 9;
+        }
+        if(xp > 1154 && xp < 1358) {
+            level = 10;
+        }
+        return level;
+    }
+
     public int getScreenX() {
         return screenX;
     }
@@ -241,5 +277,13 @@ public class Player extends Entity{
 
     public void setWoodcuttingXP(float woodcuttingXP) {
         this.woodcuttingXP = woodcuttingXP;
+    }
+
+    public int getWoodcuttingLevel() {
+        return woodcuttingLevel;
+    }
+
+    public void setWoodcuttingLevel(int woodcuttingLevel) {
+        this.woodcuttingLevel = woodcuttingLevel;
     }
 }
