@@ -31,6 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
     SuperObject[] object = new SuperObject[5];
     AssetSetter assetSetter = new AssetSetter(this);
     UI ui = new UI(this);
+    HUD hud = new HUD(this);
 
     int FPS = 144;
 
@@ -93,6 +94,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         // draw ui
         ui.draw(g2);
+
+        // draw HUD
+        hud.draw(g2);
 
         //delete all
         g2.dispose();

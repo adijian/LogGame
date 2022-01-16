@@ -56,8 +56,6 @@ public class UI {
             g2.drawString("x " + gamePanel.getPlayer().getHasKey(), 74,65);
             g2.drawString("Logs: " + gamePanel.getPlayer().getTreesCollected(), 32,130);
             g2.drawString("FPS: " + fps, 150,65);
-            g2.drawString("XP: " + gamePanel.getPlayer().getWoodcuttingXP(), 500,65);
-
 
             if(messageOn) {
                 g2.setFont(g2.getFont().deriveFont(30f));
