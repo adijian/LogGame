@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 public class SuperObject {
 
     BufferedImage image;
+    BufferedImage image2;
     String name;
     boolean collision = false;
     int worldX, worldY;
@@ -115,5 +116,9 @@ public class SuperObject {
 
     public int treeDownResetTimer() {
         return this.treeDownResetTimer;
+    }
+
+    public BufferedImage getImage2() {
+        return image2;
     }
 }

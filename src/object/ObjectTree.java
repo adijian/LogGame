@@ -16,6 +16,12 @@ public class ObjectTree extends SuperObject{
         } catch(IOException e) {
             e.printStackTrace();
         }
+
+        try {
+            image2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles1/grass.png")));
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getHp() {
