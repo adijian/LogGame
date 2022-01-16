@@ -15,8 +15,10 @@ public class Player extends Entity{
     final int screenX;
     final int screenY;
     int hasKey = 0;
+    int originalHitsDelay = 300;
     int hitsDelay = 300;
     int treesCollected = 0;
+    float woodcuttingXP;
 
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         this.gamePanel = gamePanel;
@@ -197,16 +199,16 @@ public class Player extends Entity{
                     if (gamePanel.getObject()[i].getHp() <= gamePanel.getObject()[i].getDefaultTreeHp() && hitsDelay <= 0) {
                         gamePanel.getObject()[i].setHitsTaken(gamePanel.getObject()[i].getHitsTaken() + 1);
                         gamePanel.getObject()[i].setHp(gamePanel.getObject()[i].getHp() - gamePanel.getObject()[i].getHitsTaken());
-                        hitsDelay = 20;
+                        hitsDelay = originalHitsDelay;
                     }
                     if (gamePanel.getObject()[i].getHp() <= 0 && !gamePanel.getObject()[i].isTreeDown()){
                         gamePanel.getObject()[i].setHitsTaken(0);
                         gamePanel.getObject()[i].setTreeResetTimer(gamePanel.getObject()[i].treeDownResetTimer());
                         gamePanel.getObject()[i].setImage(gamePanel.getObject()[i].getImage2());
                         gamePanel.getUi().showMessage("Tree down!");
-//                        gamePanel.getObject()[i] = null;
                         gamePanel.getPlayer().setTreesCollected(gamePanel.getPlayer().getTreesCollected() + 1);
                         gamePanel.getObject()[i].setTreeDown(true);
+                        gamePanel.getPlayer().setWoodcuttingXP(gamePanel.getPlayer().getWoodcuttingXP() + 25);
                     }
                     break;
             }
@@ -231,5 +233,13 @@ public class Player extends Entity{
 
     public void setTreesCollected(int treesCollected) {
         this.treesCollected = treesCollected;
+    }
+
+    public float getWoodcuttingXP() {
+        return woodcuttingXP;
+    }
+
+    public void setWoodcuttingXP(float woodcuttingXP) {
+        this.woodcuttingXP = woodcuttingXP;
     }
 }

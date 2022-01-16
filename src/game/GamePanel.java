@@ -55,14 +55,18 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+
+        // draw tiles
         tileManager.draw(g2);
 
+        // draw objects
         for(int i = 0;i < getObject().length;i++) {
             if(getObject()[i] != null) {
                 getObject()[i].draw(g2, this);
             }
         }
 
+        // if tree is down, display different image
         for(SuperObject obj : object) {
             if(obj!=null) {
                 if(obj.isTreeDown() && obj.getTreeResetTimer() > 0) {
@@ -84,8 +88,13 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
 
+        // draw player
         player.draw(g2);
+
+        // draw ui
         ui.draw(g2);
+
+        //delete all
         g2.dispose();
     }
 

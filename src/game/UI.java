@@ -29,6 +29,8 @@ public class UI {
     }
 
     public void draw(Graphics2D g2) {
+
+        // if the game is finished
         if(gameFinished) {
             g2.setFont(arial_50B);
             g2.setColor(Color.YELLOW);
@@ -46,6 +48,7 @@ public class UI {
 
             gamePanel.gameThread = null;}
 
+        // if game is ongoing
         else {
             g2.setFont(arial_40);
             g2.setColor(Color.white);
@@ -53,6 +56,8 @@ public class UI {
             g2.drawString("x " + gamePanel.getPlayer().getHasKey(), 74,65);
             g2.drawString("Logs: " + gamePanel.getPlayer().getTreesCollected(), 32,130);
             g2.drawString("FPS: " + fps, 150,65);
+            g2.drawString("XP: " + gamePanel.getPlayer().getWoodcuttingXP(), 500,65);
+
 
             if(messageOn) {
                 g2.setFont(g2.getFont().deriveFont(30f));
