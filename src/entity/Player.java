@@ -15,7 +15,7 @@ public class Player extends Entity{
     final int screenX;
     final int screenY;
     int hasKey = 0;
-    int originalHitsDelay = 25; //300 can be changed to debug
+    int originalHitsDelay = 200; //300 can be changed to debug
     int hitsDelay;
     int treesCollected = 0;
     float woodcuttingXP;
@@ -192,26 +192,38 @@ public class Player extends Entity{
                     break;
 
                 case "Tree" :
-                    if(hitsDelay > 0) {
+                    if(!gamePanel.getObject()[i].isTreeDown() && hitsDelay > 0) {
                         hitsDelay--;
+                        // if collides and tree isn't down, show message cutting tree
                         if(!gamePanel.getObject()[i].isTreeDown()) {
                             gamePanel.getUi().showMessage("Cutting tree...");
                         }
                     }
-                    if (gamePanel.getObject()[i].getHp() <= gamePanel.getObject()[i].getDefaultTreeHp() && hitsDelay <= 0) {
-                        gamePanel.getObject()[i].setHitsTaken(gamePanel.getObject()[i].getHitsTaken() + 1);
-                        gamePanel.getObject()[i].setHp(gamePanel.getObject()[i].getHp() - gamePanel.getObject()[i].getHitsTaken());
+                    // if tree hp lower or equal than default hp and hits delay is lower or equal than 0,
+                    // raise hits taken and lower hp. reset hits delay.
+
+                    // keep hitting tree until its hp is 0
+                    if (gamePanel.getObject()[i].getHp() > 0 && hitsDelay == 0) {
+                        gamePanel.getObject()[i].setHp(gamePanel.getObject()[i].getHp() - 1);
                         hitsDelay = originalHitsDelay;
                     }
-                    if (gamePanel.getObject()[i].getHp() <= 0 && !gamePanel.getObject()[i].isTreeDown()){
-                        gamePanel.getObject()[i].setHitsTaken(0);
-                        gamePanel.getObject()[i].setTreeResetTimer(gamePanel.getObject()[i].treeDownResetTimer());
+                    // if tree hp lower or equal than 0 and tree is not down,
+                    // set tree down equals true, set image to no tree, show message tree down and raise stats
+
+                    //if tree is down, disappear
+                    if (gamePanel.getObject()[i].getHp() == 0 && !gamePanel.getObject()[i].isTreeDown()){
+                        gamePanel.getObject()[i].setTreeDown(true);
                         gamePanel.getObject()[i].setImage(gamePanel.getObject()[i].getImage2());
                         gamePanel.getUi().showMessage("Tree down!");
                         gamePanel.getPlayer().setTreesCollected(gamePanel.getPlayer().getTreesCollected() + 1);
-                        gamePanel.getObject()[i].setTreeDown(true);
                         gamePanel.getPlayer().setWoodcuttingXP(gamePanel.getPlayer().getWoodcuttingXP() + 25);
                     }
+
+                    System.out.println("Tree " + i + " HP is " + gamePanel.getObject()[i].getHp());
+                    System.out.println("Tree " + i + " tree down " + gamePanel.getObject()[i].isTreeDown());
+                    System.out.println("Tree " + i + " reset timer " + gamePanel.getObject()[i].getTreeResetTimer());
+                    System.out.println(hitsDelay);
+
                     break;
             }
         }

@@ -4,7 +4,6 @@ import game.GamePanel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-
 public class SuperObject {
 
     BufferedImage image;
@@ -17,10 +16,10 @@ public class SuperObject {
     int solidAreaDefaultY = 0;
     int hp;
     int defaultTreeHp = 5;
-    int hitsTaken;
-    int treeResetTimer;
-    int treeDownResetTimer = 600;
+    int treeResetTimer = 600;
+    int treeDefaultDownResetTimer = 600;
     boolean treeDown = false;
+
 
     public void draw(Graphics2D g2, GamePanel gamePanel) {
         int screenX = worldX - gamePanel.getPlayer().getWorldX() + gamePanel.getPlayer().getScreenX();
@@ -33,10 +32,6 @@ public class SuperObject {
         {
             g2.drawImage(image, screenX, screenY, gamePanel.getTileSize(), gamePanel.getTileSize(), null);
         }
-    }
-
-    public BufferedImage getImage() {
-        return image;
     }
 
     public void setImage(BufferedImage image) {
@@ -87,13 +82,6 @@ public class SuperObject {
         this.hp = hp;
     }
 
-    public int getHitsTaken() {
-        return hitsTaken;
-    }
-
-    public void setHitsTaken(int hitsTaken) {
-        this.hitsTaken = hitsTaken;
-    }
     public void setTreeResetTimer(int timer) {
         this.treeResetTimer = timer;
     }
@@ -114,11 +102,15 @@ public class SuperObject {
         return defaultTreeHp;
     }
 
-    public int treeDownResetTimer() {
-        return this.treeDownResetTimer;
+    public int getTreeDefaultDownResetTimer() {
+        return this.treeDefaultDownResetTimer;
     }
 
     public BufferedImage getImage2() {
         return image2;
+    }
+
+    public BufferedImage getImage() {
+        return image;
     }
 }

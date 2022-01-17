@@ -61,31 +61,26 @@ public class GamePanel extends JPanel implements Runnable {
         tileManager.draw(g2);
 
         // draw objects
-        for(int i = 0;i < getObject().length;i++) {
-            if(getObject()[i] != null) {
-                getObject()[i].draw(g2, this);
-            }
-        }
-
-        // if tree is down, display different image
-        for(SuperObject obj : object) {
-            if(obj!=null) {
-                if(obj.isTreeDown() && obj.getTreeResetTimer() > 0) {
-                    obj.setTreeResetTimer(obj.getTreeResetTimer() - 1);
+        for(int i = 0;i < object.length;i++) {
+            if(object[i] != null) {
+                // if tree is down tick tree reset timer
+                if(object[i].isTreeDown() && object[i].getTreeResetTimer() > 0) {
+                    object[i].setTreeResetTimer(object[i].getTreeResetTimer() - 1);
                 }
-                if(obj.isTreeDown() && obj.getTreeResetTimer() <= 0) {
-                    obj.setTreeDown(false);
-                    obj.setTreeResetTimer(0);
-                    obj.setHp(obj.getDefaultTreeHp());
-                    obj.setHitsTaken(0);
 
+                if(object[i].isTreeDown() && object[i].getTreeResetTimer() == 0) {
+                    object[i].setTreeDown(false);
+                    object[i].setTreeResetTimer(object[i].getTreeDefaultDownResetTimer());
+                    object[i].setHp(object[i].getDefaultTreeHp());
                     try {
-                        obj.setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/tree2.png"))));
+                        object[i].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/tree2.png"))));
+                        System.out.println(i + " is down");
                     } catch (IOException e) {
                         e.printStackTrace();
-                        System.out.println("Image doesn't exist");
                     }
                 }
+
+                object[i].draw(g2, this);
             }
         }
 
