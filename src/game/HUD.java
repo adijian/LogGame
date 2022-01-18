@@ -22,5 +22,5 @@ public class HUD {
         g2.drawString("Woodcutting xp: ", 1635,630);
         g2.drawString("" + gamePanel.getPlayer().getWoodcuttingXP(), 1635,650);
         g2.drawString("Level: " + gamePanel.getPlayer().LevelChecker(gamePanel.getPlayer().getWoodcuttingXP(), gamePanel.getPlayer().getWoodcuttingLevel()), 1635,670);
-    }
+        }
 }

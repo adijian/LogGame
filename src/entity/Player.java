@@ -2,6 +2,7 @@ package entity;
 
 import game.GamePanel;
 import game.KeyHandler;
+import game.Levels;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -15,7 +16,7 @@ public class Player extends Entity{
     final int screenX;
     final int screenY;
     int hasKey = 0;
-    int originalHitsDelay = 200; //300 can be changed to debug
+    int originalHitsDelay = 100; //300 can be changed to debug
     int hitsDelay;
     int treesCollected = 0;
     float woodcuttingXP;
@@ -218,47 +219,71 @@ public class Player extends Entity{
                         gamePanel.getPlayer().setTreesCollected(gamePanel.getPlayer().getTreesCollected() + 1);
                         gamePanel.getPlayer().setWoodcuttingXP(gamePanel.getPlayer().getWoodcuttingXP() + 25);
                     }
-
-                    System.out.println("Tree " + i + " HP is " + gamePanel.getObject()[i].getHp());
-                    System.out.println("Tree " + i + " tree down " + gamePanel.getObject()[i].isTreeDown());
-                    System.out.println("Tree " + i + " reset timer " + gamePanel.getObject()[i].getTreeResetTimer());
-                    System.out.println(hitsDelay);
-
                     break;
             }
         }
     }
 
     public int LevelChecker(float xp, int level) {
-        if(xp > 0 && xp < 83) {
+        if(xp > 0 && xp < Levels.level1.rank) {
             level = 1;
         }
-        if(xp > 83 && xp < 174) {
+        if(xp > Levels.level1.rank && xp < Levels.level2.rank) {
             level = 2;
         }
-        if(xp > 174 && xp < 276) {
+        if(xp > Levels.level2.rank && xp < Levels.level3.rank) {
             level = 3;
         }
-        if(xp > 276 && xp < 388) {
+        if(xp > Levels.level3.rank && xp < Levels.level4.rank) {
             level = 4;
         }
-        if(xp > 388 && xp < 512) {
+        if(xp > Levels.level4.rank && xp < Levels.level5.rank) {
             level = 5;
         }
-        if(xp > 512 && xp < 650) {
+        if(xp > Levels.level5.rank && xp < Levels.level6.rank) {
             level = 6;
         }
-        if(xp > 650 && xp < 801) {
+        if(xp > Levels.level6.rank && xp < Levels.level7.rank) {
             level = 7;
         }
-        if(xp > 801 && xp < 969) {
+        if(xp > Levels.level7.rank && xp < Levels.level8.rank) {
             level = 8;
         }
-        if(xp > 969 && xp < 1154) {
+        if(xp > Levels.level8.rank && xp < Levels.level9.rank) {
             level = 9;
         }
-        if(xp > 1154 && xp < 1358) {
+        if(xp > Levels.level9.rank && xp < Levels.level10.rank) {
             level = 10;
+        }
+        if(xp > Levels.level10.rank && xp < Levels.level11.rank) {
+            level = 11;
+        }
+        if(xp > Levels.level11.rank && xp < Levels.level12.rank) {
+            level = 12;
+        }
+        if(xp > Levels.level12.rank && xp < Levels.level13.rank) {
+            level = 13;
+        }
+        if(xp > Levels.level13.rank && xp < Levels.level14.rank) {
+            level = 14;
+        }
+        if(xp > Levels.level14.rank && xp < Levels.level15.rank) {
+            level = 15;
+        }
+        if(xp > Levels.level15.rank && xp < Levels.level16.rank) {
+            level = 16;
+        }
+        if(xp > Levels.level16.rank && xp < Levels.level17.rank) {
+            level = 17;
+        }
+        if(xp > Levels.level17.rank && xp < Levels.level18.rank) {
+            level = 18;
+        }
+        if(xp > Levels.level18.rank && xp < Levels.level19.rank) {
+            level = 19;
+        }
+        if(xp > Levels.level19.rank && xp < Levels.level20.rank) {
+            level = 20;
         }
         return level;
     }
