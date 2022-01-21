@@ -29,7 +29,8 @@ public class ShapePane extends JPanel {
             dragValids[i] = false;
             rectangleCorners[i] = new Point(0, 0);
             rectanglePreviousPoints[i] = new Point(0, 0);
-            this.add(rectangleList[i] = new Rectangle2D.Double(rectangleCorners[i].getX(), rectangleCorners[i].getY(), 100, 100));
+            rectangleList[i] = new Rectangle2D.Double(rectangleCorners[i].getX(), rectangleCorners[i].getY(), 100, 100);
+            repaint();
             i++;
         });
         this.add(button);
@@ -56,11 +57,6 @@ public class ShapePane extends JPanel {
             }
         }
     }
-
-    public void add(Rectangle2D.Double rectangle) {
-        repaint();
-    }
-
 
     private class ClickListener extends MouseAdapter {
         public void mousePressed(MouseEvent e) {
