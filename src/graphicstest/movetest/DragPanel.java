@@ -13,28 +13,21 @@ public class DragPanel extends JPanel {
     Point previousPoint;
     Rectangle2D.Double rectangle;
     int borderPanel;
-    JButton button;
-    DragPanel dragPanel;
     boolean dragValid = false;
+    ShapePane shapePane;
 
     DragPanel() {
+        this.setSize(1920,1080);
         rectangleCorner = new Point(0, 0);
         borderPanel = 200;
-//        rectangle = new Rectangle2D.Double(rectangleCorner.getX(), borderPanel + rectangleCorner.getY(), 300,300);
         rectangle = new Rectangle2D.Double(borderPanel + rectangleCorner.getX(), borderPanel + rectangleCorner.getY(), 300, 300);
-
-
-//        button = new JButton("Create new rectangle");
-//        button.addActionListener(e -> {
-//            new Rectangle2D.Double(rectangleCorner.getX() + 500, borderPanel + rectangleCorner.getY() + 500, 300,300);
-//            repaint();});
-//        this.add(button);
+        shapePane = new ShapePane();
+        this.add(shapePane);
 
         ClickListener clickListener = new ClickListener();
         DragListener dragListener = new DragListener();
         this.addMouseListener(clickListener);
         this.addMouseMotionListener(dragListener);
-
     }
 
 
