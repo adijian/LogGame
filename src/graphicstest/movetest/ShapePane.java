@@ -21,10 +21,10 @@ public class ShapePane extends JPanel {
         this.setSize(1920, 1080);
 
         button = new JButton("Create new rectangle");
-        rectangleList = new Rectangle2D.Double[100];
-        rectangleCorners = new Point[100];
-        rectanglePreviousPoints = new Point[100];
-        dragValids = new Boolean[100];
+        rectangleList = new Rectangle2D.Double[1000];
+        rectangleCorners = new Point[1000];
+        rectanglePreviousPoints = new Point[1000];
+        dragValids = new Boolean[1000];
         button.addActionListener(e -> {
             dragValids[i] = false;
             rectangleCorners[i] = new Point(0, 0);
