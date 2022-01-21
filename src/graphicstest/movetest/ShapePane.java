@@ -13,7 +13,7 @@ public class ShapePane extends JPanel {
     Rectangle2D.Double[] rectangleList;
     Point[] rectangleCorners;
     Point[] rectanglePreviousPoints;
-    Boolean[] dragValids;
+    Boolean[] isDragValidPerRectangle;
     int i = 0;
 
     public ShapePane() {
@@ -24,9 +24,9 @@ public class ShapePane extends JPanel {
         rectangleList = new Rectangle2D.Double[1000];
         rectangleCorners = new Point[1000];
         rectanglePreviousPoints = new Point[1000];
-        dragValids = new Boolean[1000];
+        isDragValidPerRectangle = new Boolean[1000];
         button.addActionListener(e -> {
-            dragValids[i] = false;
+            isDragValidPerRectangle[i] = false;
             rectangleCorners[i] = new Point(0, 0);
             rectanglePreviousPoints[i] = new Point(0, 0);
             rectangleList[i] = new Rectangle2D.Double(rectangleCorners[i].getX(), rectangleCorners[i].getY(), 100, 100);
@@ -64,7 +64,7 @@ public class ShapePane extends JPanel {
             for (int t = 0; t < rectangleList.length; t++) {
                 if (rectangleList[t] != null) {
                     rectanglePreviousPoints[t] = e.getPoint();
-                    dragValids[t] = (e.getPoint().getX() > rectangleCorners[t].getX()) &&
+                    isDragValidPerRectangle[t] = (e.getPoint().getX() > rectangleCorners[t].getX()) &&
                             (e.getPoint().getX() < (rectangleCorners[t].getX() + rectangleList[t].getWidth())) &&
                             (e.getPoint().getY() > rectangleCorners[t].getY()) &&
                             (e.getPoint().getY() < (rectangleCorners[t].getY() + rectangleList[t].getHeight()));
@@ -78,7 +78,7 @@ public class ShapePane extends JPanel {
 
             for (int t = 0; t < rectangleList.length; t++) {
                 if (rectangleList[t] != null) {
-                    if (dragValids[t]) {
+                    if (isDragValidPerRectangle[t]) {
                         Point currentPoint = e.getPoint();
                         rectangleCorners[t].translate(
                                 (int) (currentPoint.getX() - rectanglePreviousPoints[t].getX()),
