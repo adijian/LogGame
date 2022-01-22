@@ -96,17 +96,17 @@ public class ShapePane extends JPanel {
 
                         for(int j = 0; j < rectangleList.length; j++) {
                             if (i != j && rectangleList[j] != null && rectangleList[i] != null) {
-                                if(rectangleList[i].intersects(rectangleList[j])) {
 
+                                if(rectangleList[i].intersects(rectangleList[j])) {
                                     rectanglesIntersactions[i] = new Rectangle2D.Double(
                                             rectangleList[i].createIntersection(rectangleList[j]).getX(),
                                             rectangleList[i].createIntersection(rectangleList[j]).getY(),
                                             rectangleList[i].createIntersection(rectangleList[j]).getWidth(),
                                             rectangleList[i].createIntersection(rectangleList[j]).getHeight());
 
-                                    if(rectanglesIntersactions[i].x > 0 && rectangleList[i].y > 0) {
-                                        rectangleCorners[i].x += (int) (rectangleList[i].x - rectanglesIntersactions[i].x);
-                                        rectangleCorners[i].y += (int) (rectangleList[i].y - rectanglesIntersactions[i].y);
+                                    if(rectanglesIntersactions[i].x > 0 && rectanglesIntersactions[i].y > 0) {
+                                        rectangleCorners[i].x += (int) (rectangleList[i].x - rectanglesIntersactions[i].x)/10;
+                                        rectangleCorners[i].y += (int) (rectangleList[i].y - rectanglesIntersactions[i].y)/10;
 
                                         rectangleList[i].x = rectangleCorners[i].x;
                                         rectangleList[i].y = rectangleCorners[i].y;
