@@ -11,6 +11,7 @@ public class ShapePane extends JPanel {
     JButton button;
 
     Rectangle2D.Double[] rectangleList;
+    Rectangle2D.Double[] rectanglesIntersactions;
     Point[] rectangleCorners;
     Point[] rectanglePreviousPoints;
     Boolean[] isDragValidPerRectangle;
@@ -22,6 +23,7 @@ public class ShapePane extends JPanel {
 
         button = new JButton("Create new rectangle");
         rectangleList = new Rectangle2D.Double[1000];
+        rectanglesIntersactions = new Rectangle2D.Double[1000];
         rectangleCorners = new Point[1000];
         rectanglePreviousPoints = new Point[1000];
         isDragValidPerRectangle = new Boolean[1000];
@@ -50,7 +52,10 @@ public class ShapePane extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.blue);
+        int colorChanger = 50;
+        colorChanger += 30;
+//        g2.setColor(Color.blue);
+        g2.setColor(new Color(1+colorChanger,1+colorChanger,1));
         for (Rectangle2D.Double rectanglelist : rectangleList) {
             if (rectanglelist != null) {
                 g2.fill(rectanglelist);
@@ -76,18 +81,51 @@ public class ShapePane extends JPanel {
     private class DragListener extends MouseMotionAdapter {
         public void mouseDragged(MouseEvent e) {
 
-            for (int t = 0; t < rectangleList.length; t++) {
-                if (rectangleList[t] != null) {
-                    if (isDragValidPerRectangle[t]) {
+            for (int i = 0; i < rectangleList.length; i++) {
+                if (rectangleList[i] != null) {
+                    if (isDragValidPerRectangle[i]) {
                         Point currentPoint = e.getPoint();
-                        rectangleCorners[t].translate(
-                                (int) (currentPoint.getX() - rectanglePreviousPoints[t].getX()),
-                                (int) (currentPoint.getY() - rectanglePreviousPoints[t].getY())
+                        rectangleCorners[i].translate(
+                                (int) (currentPoint.getX() - rectanglePreviousPoints[i].getX()),
+                                (int) (currentPoint.getY() - rectanglePreviousPoints[i].getY())
                         );
-                        rectangleList[t].x = rectangleCorners[t].getX();
-                        rectangleList[t].y = rectangleCorners[t].getY();
-                        rectanglePreviousPoints[t] = currentPoint;
+                        rectangleList[i].x = rectangleCorners[i].getX();
+                        rectangleList[i].y = rectangleCorners[i].getY();
+                        rectanglePreviousPoints[i] = currentPoint;
                         repaint();
+
+                        for(int j = 0; j < rectangleList.length; j++) {
+                            if (i != j && rectangleList[j] != null && rectangleList[i] != null) {
+                                if(rectangleList[i].intersects(rectangleList[j])) {
+
+                                    rectanglesIntersactions[i] = new Rectangle2D.Double(
+                                            rectangleList[i].createIntersection(rectangleList[j]).getX(),
+                                            rectangleList[i].createIntersection(rectangleList[j]).getY(),
+                                            rectangleList[i].createIntersection(rectangleList[j]).getWidth(),
+                                            rectangleList[i].createIntersection(rectangleList[j]).getHeight());
+
+                                    if(rectanglesIntersactions[i].x > 0 && rectangleList[i].y > 0) {
+                                        rectangleCorners[i].x += (int) (rectangleList[i].x - rectanglesIntersactions[i].x);
+                                        rectangleCorners[i].y += (int) (rectangleList[i].y - rectanglesIntersactions[i].y);
+
+                                        rectangleList[i].x = rectangleCorners[i].x;
+                                        rectangleList[i].y = rectangleCorners[i].y;
+                                        rectanglesIntersactions[i] = null;
+
+                                        if(rectangleList[i].x >= 1920) {
+                                            rectangleCorners[i].x = (int) (1920 - rectangleList[i].x);
+                                            rectangleList[i].x = rectangleCorners[i].x;
+                                        }
+
+                                        if(rectangleList[i].y >= 1080) {
+                                            rectangleCorners[i].y = (int) (1080 - rectangleList[i].y);
+                                            rectangleList[i].y = rectangleCorners[i].y;
+                                        }
+                                        repaint();
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
