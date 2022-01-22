@@ -1,12 +1,10 @@
-package graphicstest.movetest.rectangletest;
+package graphicstest.movetest.moveobjecttest;
+
 import javax.swing.*;
-import java.awt.*;
 
 public class Main {
 
     public static void main(String[] args) {
-
-
         JFrame frame = new JFrame();
         frame.add(new Panel());
 
