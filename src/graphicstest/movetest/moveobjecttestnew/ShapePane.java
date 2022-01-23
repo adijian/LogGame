@@ -57,6 +57,12 @@ public class ShapePane extends JPanel {
                 g2.fill(rectanglelist.rectangle);
             }
         }
+        g2.setColor(new Color(1,1,1));
+        for (Rectangle rectangleCollision : rectanglesIntersactions) {
+            if (rectangleCollision != null) {
+                g2.fill(rectangleCollision);
+            }
+        }
     }
 
     private class ClickListener extends MouseAdapter {
@@ -101,16 +107,21 @@ public class ShapePane extends JPanel {
                                             (int) rectangle.rectangle.createIntersection(rectangleList[j].rectangle).getY(),
                                             (int) rectangle.rectangle.createIntersection(rectangleList[j].rectangle).getWidth(),
                                             (int) rectangle.rectangle.createIntersection(rectangleList[j].rectangle).getHeight());
+                                    System.out.println("Intersaction: " + rectanglesIntersactions[j]);
+                                    System.out.println("Rectangle: " + rectangleList[j].rectangle);
 
-                                    if(rectanglesIntersactions[j].x > 0 && rectanglesIntersactions[j].y > 0){
-                                        rectangle.topLeftCornerPoint.x += (int) (rectangle.rectangle.x - rectanglesIntersactions[j].x)/10;
-                                        rectangle.topLeftCornerPoint.y += (int) (rectangle.rectangle.y - rectanglesIntersactions[j].y)/10;
 
-                                        rectangle.rectangle.x = rectangle.topLeftCornerPoint.x;
-                                        rectangle.rectangle.y = rectangle.topLeftCornerPoint.y;
-                                        rectanglesIntersactions[j] = null;
+                                    if(rectanglesIntersactions[j].x > 0 && rectanglesIntersactions[j].y > 0) {
+                                        rectangle.topLeftCornerPoint.x += 10;
+                                        rectangle.topLeftCornerPoint.y += 10;
+                                    }
+                                    System.out.println("Rectangle x: " + rectangle.topLeftCornerPoint.x);
+                                    System.out.println("Rectangle y: " + rectangle.topLeftCornerPoint.y);
 
-                                        repaint();
+                                    rectangle.rectangle.x = rectangle.topLeftCornerPoint.getX();
+                                    rectangle.rectangle.y = rectangle.topLeftCornerPoint.getY();
+
+                                    repaint();
                                     }
                                 }
                             }
@@ -120,4 +131,3 @@ public class ShapePane extends JPanel {
             }
         }
     }
-}
