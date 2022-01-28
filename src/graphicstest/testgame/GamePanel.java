@@ -1,5 +1,7 @@
 package graphicstest.testgame;
 
+import tile.TileManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -15,10 +17,10 @@ class GamePanel extends JPanel implements Runnable {
     int panelWidth = 1920;
     int panelHeight = 1080;
 
-    int minTilesScreenColumn = (int) Math.ceil((double) panelWidth / TILE_SIZE) + 1;
-    int minTilesScreenRow = (int) Math.ceil((double)panelHeight / TILE_SIZE) + 1;
+    int minTilesScreenColumn = (int) Math.ceil((double) panelWidth / TILE_SIZE);
+    int minTilesScreenRow = (int) Math.ceil((double)panelHeight / TILE_SIZE);
 
-    int worldMultiplier = 5;
+    int worldMultiplier = 1;
     int maxTilesScreenColumn = worldMultiplier * minTilesScreenColumn;
     int maxTilesScreenRow = worldMultiplier * minTilesScreenRow;
 
@@ -33,11 +35,16 @@ class GamePanel extends JPanel implements Runnable {
     //game state
     enumGameState gameState;
 
-    GamePanel() {
+    TilesManager tilesManager = new TilesManager(this);
+
+    GamePanel() throws IOException {
         this.setPreferredSize(new Dimension(panelWidth, panelHeight));
         this.setDoubleBuffered(true);
 //        this.addKeyListener(keyHandler);
         this.setFocusable(true);
+
+
+        //TODO DEBUG
         System.out.println("minTilesScreenColumn: " + minTilesScreenColumn);
         System.out.println("minTilesScreenRow: " + minTilesScreenRow);
 
@@ -64,11 +71,19 @@ class GamePanel extends JPanel implements Runnable {
                 break;
 
             case initialGameState:
+                tilesManager.draw(g2d);
+
+                ui.exitToMainMenuButton.setBounds(panelWidth - (TILE_SIZE*2), 0, 500,500);
+                ui.exitToMainMenuButton.setContentAreaFilled(false);
+                ui.exitToMainMenuButton.setBorderPainted(false);
+                ui.exitToMainMenuButton.setOpaque(false);
+                ui.exitToMainMenuButton.addActionListener(e -> gameState = enumGameState.startState);
+                this.add(ui.exitToMainMenuButton);
 
                 break;
         }
-
         ui.draw(g2d);
+
 
         g2d.dispose();
 
@@ -102,6 +117,7 @@ class GamePanel extends JPanel implements Runnable {
             if(timer >= 1000000000) {
                 if (lastDrawCount != drawCount) {
                     lastDrawCount = drawCount;
+                    //TODO DEBUG
                     System.out.println(lastDrawCount);
                 }
                 drawCount = 0;

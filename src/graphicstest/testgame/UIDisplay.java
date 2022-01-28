@@ -1,7 +1,11 @@
 package graphicstest.testgame;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Objects;
 
 class UIDisplay {
 
@@ -11,7 +15,11 @@ class UIDisplay {
     JButton gameStartButton;
     Rectangle startButtonRectangle;
 
-    UIDisplay(GamePanel gamePanel) {
+    JButton exitToMainMenuButton;
+
+    BufferedImage bearImage;
+
+    UIDisplay(GamePanel gamePanel) throws IOException {
         this.gamePanel = gamePanel;
         arial_40B = new Font("Arial", Font.BOLD, 40);
         arial_40 = new Font("Arial", Font.PLAIN, 40);
@@ -20,7 +28,11 @@ class UIDisplay {
                 (int) (gamePanel.panelHeight / 5),
                 (int) (gamePanel.getTILE_SIZE() * 20),
                 (int) (gamePanel.getTILE_SIZE() * 2));
-        gameStartButton = new JButton("");
+        gameStartButton = new JButton();
+
+        exitToMainMenuButton = new JButton();
+        bearImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/misc/clipart.png")));
+
     }
 
     public void draw(Graphics2D g2d) {
@@ -67,25 +79,28 @@ class UIDisplay {
                 g2d.setFont(arial_40);
                 g2d.drawString("Start Game", (int)(startButtonRectangle.x*1.7), (int)(startButtonRectangle.y*1.28));
 
+                g2d.drawImage(bearImage, (int)(startButtonRectangle.x*1.4),(int)(startButtonRectangle.y*1.8),null);
+
                 break;
 
             case initialGameState:
-                // dark gray background
-                g2d.setColor(Color.DARK_GRAY);
-                g2d.fillRect(0,
-                        0,
-                        (int)(gamePanel.panelWidth),
-                        (int)(gamePanel.panelHeight));
-
                 // display FPS
                 g2d.setFont(arial_40);
-                g2d.setColor(Color.lightGray);
+                g2d.setColor(new Color(0,0,0,100));
 
                 text = "FPS: " + gamePanel.lastDrawCount;
 
-                x = gamePanel.getTILE_SIZE();
-                y = gamePanel.getTILE_SIZE();
+                x = gamePanel.TILE_SIZE/2;
+                y = gamePanel.TILE_SIZE;
                 g2d.drawString(text, x, y);
+
+                // exit to main menu
+                text = "Exit";
+                x = gamePanel.panelWidth - (gamePanel.TILE_SIZE*2);
+                y = gamePanel.TILE_SIZE;
+                g2d.drawString(text, x, y);
+
+
                 break;
         }
     }
