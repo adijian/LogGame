@@ -31,8 +31,11 @@ class UIDisplay {
         gameStartButton = new JButton();
 
         exitToMainMenuButton = new JButton();
-        bearImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/misc/clipart.png")));
-
+        try {
+            bearImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/misc/clipart.png")));
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void draw(Graphics2D g2d) {
