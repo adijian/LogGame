@@ -1,6 +1,7 @@
 package graphicstest.testgame;
 
 import entity.Player;
+import game.CollisionChecker;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +19,7 @@ class MainGamePanel extends JPanel implements Runnable {
     int minTilesScreenColumn = (int) Math.ceil((double) panelWidth / TILE_SIZE);
     int minTilesScreenRow = (int) Math.ceil((double)panelHeight / TILE_SIZE);
 
-    int worldMultiplier = 1;
+    int worldMultiplier = 4;
     int maxTilesScreenColumn = worldMultiplier * minTilesScreenColumn;
     int maxTilesScreenRow = worldMultiplier * minTilesScreenRow;
 
@@ -33,8 +34,9 @@ class MainGamePanel extends JPanel implements Runnable {
     //game state
     enumGameState gameState;
 
-    KeysHandler keysHandler;
+    KeysHandler keysHandler = new KeysHandler();
     PlayerEntity player = new PlayerEntity(this, keysHandler);
+    CollisionCheck collisionCheck = new CollisionCheck(this);
 
     TilesManager tilesManager = new TilesManager(this, "/maptiles/tileMapGame2.txt");
 

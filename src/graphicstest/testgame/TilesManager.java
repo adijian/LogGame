@@ -41,7 +41,7 @@ public class TilesManager {
             while(column < mainGamePanel.maxTilesScreenColumn && row < mainGamePanel.maxTilesScreenRow) {
                 String line = bufferedReader.readLine();
 
-                while(column < mainGamePanel.maxTilesScreenColumn) {
+                while (column < mainGamePanel.maxTilesScreenColumn) {
                     String[] numbersInLine = line.split(" ");
                     int numberInCell = Integer.parseInt(numbersInLine[column]);
 
@@ -69,19 +69,23 @@ public class TilesManager {
             int tileNum = mapTileNum[worldColumn][worldRow];
             int worldX = worldColumn * mainGamePanel.TILE_SIZE;
             int worldY = worldRow * mainGamePanel.TILE_SIZE;
+            int screenX = worldX - mainGamePanel.player.worldX + mainGamePanel.player.screenX;
+            int screenY = worldY - mainGamePanel.player.worldY + mainGamePanel.player.screenY;
 
-            // TODO changed by player
-//            int screenX = worldX - gamePanel
-
-            g2d.drawImage(tile[tileNum].image, worldX, worldY, mainGamePanel.TILE_SIZE, mainGamePanel.TILE_SIZE, null);
+            if (worldX + mainGamePanel.TILE_SIZE > mainGamePanel.player.worldX - mainGamePanel.player.screenX &&
+                    worldX - mainGamePanel.TILE_SIZE < mainGamePanel.player.worldX + mainGamePanel.player.screenX &&
+                    worldY + mainGamePanel.TILE_SIZE > mainGamePanel.player.worldY - mainGamePanel.player.screenY &&
+                    worldY - mainGamePanel.TILE_SIZE < mainGamePanel.player.worldY + mainGamePanel.player.screenY)
+            {
+                g2d.drawImage(tile[tileNum].image, screenX, screenY, mainGamePanel.TILE_SIZE, mainGamePanel.TILE_SIZE, null);
+            }
 
             worldColumn++;
+
             if(worldColumn == mainGamePanel.maxTilesScreenColumn) {
                 worldColumn = 0;
                 worldRow++;
             }
-
         }
-
     }
 }

@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
-class PlayerEntity extends Entity{
+class PlayerEntity extends Entitys{
 
     MainGamePanel gamePanel;
     KeysHandler keysHandler;
@@ -29,8 +29,8 @@ class PlayerEntity extends Entity{
         this.direction = "down";
         this.speed = 2;
 
-        this.worldX = gamePanel.TILE_SIZE * 20; // starting positions
-        this.worldY = gamePanel.TILE_SIZE * 20; // starting positions
+        this.worldX = gamePanel.TILE_SIZE * 25; // starting positions
+        this.worldY = gamePanel.TILE_SIZE * 25; // starting positions
 
         screenX = gamePanel.panelWidth / 2 - (gamePanel.TILE_SIZE / 2);
         screenY = gamePanel.panelHeight / 2 - (gamePanel.TILE_SIZE / 2);
@@ -83,10 +83,10 @@ class PlayerEntity extends Entity{
             }
             // Check tile collision
             collisionOn = false;
-//            gamePanel.getCollisionChecker().checkTile(this);
+            gamePanel.collisionCheck.checkTile(this);
 
             // Check object collision
-//            int objectIndex = gamePanel.getCollisionChecker().checkObject(this, true);
+//            int objectIndex = gamePanel.collisionCheck.checkObject(this, true);
 //            pickUpObject(objectIndex);
 
             // If collision is false, player can move
