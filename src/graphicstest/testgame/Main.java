@@ -12,7 +12,7 @@ public class Main {
         String gameName = "Loom Bear Jack";
         frame.setTitle(gameName);
 
-        JPanel gamePanel = new GamePanel();
+        JPanel gamePanel = new MainGamePanel();
         frame.add(gamePanel);
 
         frame.pack();

@@ -1,14 +1,12 @@
 package graphicstest.testgame;
 
-import tile.TileManager;
+import entity.Player;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 
-class GamePanel extends JPanel implements Runnable {
+class MainGamePanel extends JPanel implements Runnable {
     // tile size modifiers
     final int BASE_TILE_SIZE = 16;
     int scale = 3;
@@ -35,14 +33,16 @@ class GamePanel extends JPanel implements Runnable {
     //game state
     enumGameState gameState;
 
-    TilesManager tilesManager = new TilesManager(this);
+    KeysHandler keysHandler;
+    PlayerEntity player = new PlayerEntity(this, keysHandler);
 
-    GamePanel() throws IOException {
+    TilesManager tilesManager = new TilesManager(this, "/maptiles/tileMapGame2.txt");
+
+    MainGamePanel() throws IOException {
         this.setPreferredSize(new Dimension(panelWidth, panelHeight));
         this.setDoubleBuffered(true);
-//        this.addKeyListener(keyHandler);
+        this.addKeyListener(keysHandler);
         this.setFocusable(true);
-
 
         //TODO DEBUG
         System.out.println("minTilesScreenColumn: " + minTilesScreenColumn);
@@ -72,6 +72,7 @@ class GamePanel extends JPanel implements Runnable {
 
             case initialGameState:
                 tilesManager.draw(g2d);
+                player.draw(g2d);
 
                 ui.exitToMainMenuButton.setBounds(panelWidth - (TILE_SIZE*2), 0, 500,500);
                 ui.exitToMainMenuButton.setContentAreaFilled(false);
@@ -127,8 +128,13 @@ class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() throws IOException {
-
-
+        switch(gameState) {
+            case startState:
+                break;
+            case initialGameState:
+                player.update();
+                break;
+        }
     }
 
     public void startGameThread() {

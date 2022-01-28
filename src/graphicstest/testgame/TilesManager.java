@@ -8,21 +8,22 @@ import java.io.InputStreamReader;
 
 public class TilesManager {
 
-    GamePanel gamePanel;
+    MainGamePanel mainGamePanel;
     Tiles[] tile;
     int[][] mapTileNum;
 
-    TilesManager(GamePanel gamePanel) {
-        this.gamePanel = gamePanel;
+    TilesManager(MainGamePanel mainGamePanel, String tileMapFilePath) {
+        this.mainGamePanel = mainGamePanel;
         tile = new Tiles[10]; // regards to the number of tile types available
-        mapTileNum = new int[gamePanel.maxTilesScreenColumn][gamePanel.maxTilesScreenColumn];
+        mapTileNum = new int[mainGamePanel.maxTilesScreenColumn][mainGamePanel.maxTilesScreenColumn];
         getTilesImages();
-        loadMap("/maptiles/tileMapGame2.txt");
+        loadMap(tileMapFilePath);
     }
 
     void getTilesImages() {
         try {
             tile[0] = new TilesGrass();
+            tile[1] = new TilesTree();
         } catch(IOException o) {
             o.printStackTrace();
         }
@@ -37,10 +38,10 @@ public class TilesManager {
             int column = 0;
             int row = 0;
 
-            while(column < gamePanel.maxTilesScreenColumn && row < gamePanel.maxTilesScreenRow) {
+            while(column < mainGamePanel.maxTilesScreenColumn && row < mainGamePanel.maxTilesScreenRow) {
                 String line = bufferedReader.readLine();
 
-                while(column < gamePanel.maxTilesScreenColumn) {
+                while(column < mainGamePanel.maxTilesScreenColumn) {
                     String[] numbersInLine = line.split(" ");
                     int numberInCell = Integer.parseInt(numbersInLine[column]);
 
@@ -48,7 +49,7 @@ public class TilesManager {
                     column++;
                 }
 
-                if (column == gamePanel.maxTilesScreenColumn) {
+                if (column == mainGamePanel.maxTilesScreenColumn) {
                     column = 0;
                     row++;
                 }
@@ -64,18 +65,18 @@ public class TilesManager {
         int worldColumn = 0;
         int worldRow = 0;
 
-        while(worldColumn < gamePanel.maxTilesScreenColumn && worldRow < gamePanel.maxTilesScreenRow){
+        while(worldColumn < mainGamePanel.maxTilesScreenColumn && worldRow < mainGamePanel.maxTilesScreenRow){
             int tileNum = mapTileNum[worldColumn][worldRow];
-            int worldX = worldColumn * gamePanel.TILE_SIZE;
-            int worldY = worldRow * gamePanel.TILE_SIZE;
+            int worldX = worldColumn * mainGamePanel.TILE_SIZE;
+            int worldY = worldRow * mainGamePanel.TILE_SIZE;
 
             // TODO changed by player
 //            int screenX = worldX - gamePanel
 
-            g2d.drawImage(tile[tileNum].image, worldX, worldY, gamePanel.TILE_SIZE, gamePanel.TILE_SIZE, null);
+            g2d.drawImage(tile[tileNum].image, worldX, worldY, mainGamePanel.TILE_SIZE, mainGamePanel.TILE_SIZE, null);
 
             worldColumn++;
-            if(worldColumn == gamePanel.maxTilesScreenColumn) {
+            if(worldColumn == mainGamePanel.maxTilesScreenColumn) {
                 worldColumn = 0;
                 worldRow++;
             }

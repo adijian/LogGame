@@ -9,7 +9,7 @@ import java.util.Objects;
 
 class UIDisplay {
 
-    GamePanel gamePanel;
+    MainGamePanel mainGamePanel;
     Font arial_40B;
     Font arial_40;
     JButton gameStartButton;
@@ -19,15 +19,15 @@ class UIDisplay {
 
     BufferedImage bearImage;
 
-    UIDisplay(GamePanel gamePanel) throws IOException {
-        this.gamePanel = gamePanel;
+    UIDisplay(MainGamePanel mainGamePanel) throws IOException {
+        this.mainGamePanel = mainGamePanel;
         arial_40B = new Font("Arial", Font.BOLD, 40);
         arial_40 = new Font("Arial", Font.PLAIN, 40);
 
         startButtonRectangle = new Rectangle((int) (500),
-                (int) (gamePanel.panelHeight / 5),
-                (int) (gamePanel.getTILE_SIZE() * 20),
-                (int) (gamePanel.getTILE_SIZE() * 2));
+                (int) (mainGamePanel.panelHeight / 5),
+                (int) (mainGamePanel.getTILE_SIZE() * 20),
+                (int) (mainGamePanel.getTILE_SIZE() * 2));
         gameStartButton = new JButton();
 
         exitToMainMenuButton = new JButton();
@@ -40,39 +40,39 @@ class UIDisplay {
 
     public void draw(Graphics2D g2d) {
 
-        switch(gamePanel.gameState) {
+        switch(mainGamePanel.gameState) {
             case startState:
                 // dark gray background
                 g2d.setColor(Color.DARK_GRAY);
                 g2d.fillRect(0,
                         0,
-                        (int)(gamePanel.panelWidth),
-                        (int)(gamePanel.panelHeight));
+                        (int)(mainGamePanel.panelWidth),
+                        (int)(mainGamePanel.panelHeight));
 
 
                 // display FPS
                 g2d.setFont(arial_40);
                 g2d.setColor(Color.lightGray);
 
-                String text = "FPS: " + gamePanel.lastDrawCount;
+                String text = "FPS: " + mainGamePanel.lastDrawCount;
 
-                int x = gamePanel.getTILE_SIZE();
-                int y = gamePanel.getTILE_SIZE();
+                int x = mainGamePanel.getTILE_SIZE();
+                int y = mainGamePanel.getTILE_SIZE();
                 g2d.drawString(text, x, y);
 
                 // game title
                 g2d.setFont(arial_40B);
                 String gameName = "Loom Bear Jack";
                 int textLength = (int) g2d.getFontMetrics().getStringBounds(gameName, g2d).getWidth();
-                int xGameTitle = gamePanel.panelWidth/2 - textLength/2;
-                int yGameTitle = gamePanel.getTILE_SIZE();
+                int xGameTitle = mainGamePanel.panelWidth/2 - textLength/2;
+                int yGameTitle = mainGamePanel.getTILE_SIZE();
                 g2d.drawString(gameName, xGameTitle, yGameTitle);
 
                 // start game panel
                 g2d.fillRect((int)(textLength),
-                        (int)(gamePanel.panelHeight/10),
-                        (int)(gamePanel.panelWidth * 0.7),
-                        (int)(gamePanel.panelHeight * 0.7));
+                        (int)(mainGamePanel.panelHeight/10),
+                        (int)(mainGamePanel.panelWidth * 0.7),
+                        (int)(mainGamePanel.panelHeight * 0.7));
 
                 // start button
                 g2d.setColor(Color.DARK_GRAY);
@@ -91,16 +91,16 @@ class UIDisplay {
                 g2d.setFont(arial_40);
                 g2d.setColor(new Color(0,0,0,100));
 
-                text = "FPS: " + gamePanel.lastDrawCount;
+                text = "FPS: " + mainGamePanel.lastDrawCount;
 
-                x = gamePanel.TILE_SIZE/2;
-                y = gamePanel.TILE_SIZE;
+                x = mainGamePanel.TILE_SIZE/2;
+                y = mainGamePanel.TILE_SIZE;
                 g2d.drawString(text, x, y);
 
                 // exit to main menu
                 text = "Exit";
-                x = gamePanel.panelWidth - (gamePanel.TILE_SIZE*2);
-                y = gamePanel.TILE_SIZE;
+                x = mainGamePanel.panelWidth - (mainGamePanel.TILE_SIZE*2);
+                y = mainGamePanel.TILE_SIZE;
                 g2d.drawString(text, x, y);
 
 
