@@ -28,6 +28,7 @@ class PlayerEntity extends Entitys{
 
         this.direction = "down";
         this.speed = 2;
+        int hp = 3;
 
         this.worldX = gamePanel.TILE_SIZE * 25; // starting positions
         this.worldY = gamePanel.TILE_SIZE * 25; // starting positions

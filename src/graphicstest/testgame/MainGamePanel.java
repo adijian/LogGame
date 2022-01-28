@@ -87,7 +87,6 @@ class MainGamePanel extends JPanel implements Runnable {
         }
         ui.draw(g2d);
 
-
         g2d.dispose();
 
     }

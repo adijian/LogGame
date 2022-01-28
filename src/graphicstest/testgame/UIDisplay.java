@@ -12,6 +12,7 @@ class UIDisplay {
     MainGamePanel mainGamePanel;
     Font arial_40B;
     Font arial_40;
+    Font arial_20;
     JButton gameStartButton;
     Rectangle startButtonRectangle;
 
@@ -23,6 +24,7 @@ class UIDisplay {
         this.mainGamePanel = mainGamePanel;
         arial_40B = new Font("Arial", Font.BOLD, 40);
         arial_40 = new Font("Arial", Font.PLAIN, 40);
+        arial_20 = new Font("Arial", Font.PLAIN, 20);
 
         startButtonRectangle = new Rectangle((int) (500),
                 (int) (mainGamePanel.panelHeight / 5),
@@ -51,7 +53,7 @@ class UIDisplay {
 
 
                 // display FPS
-                g2d.setFont(arial_40);
+                g2d.setFont(arial_20);
                 g2d.setColor(Color.lightGray);
 
                 String text = "FPS: " + mainGamePanel.lastDrawCount;
@@ -87,14 +89,28 @@ class UIDisplay {
                 break;
 
             case initialGameState:
-                // display FPS
-                g2d.setFont(arial_40);
+                //rectangle for FPS and player HUD
                 g2d.setColor(new Color(0,0,0,100));
+                g2d.fillRect(2,2, (int) (mainGamePanel.TILE_SIZE * 2.5), mainGamePanel.TILE_SIZE * 3);
+
+                // display FPS
+                g2d.setFont(arial_20);
+                g2d.setColor(new Color(227, 227, 227,150));
 
                 text = "FPS: " + mainGamePanel.lastDrawCount;
 
-                x = mainGamePanel.TILE_SIZE/2;
-                y = mainGamePanel.TILE_SIZE;
+                x = mainGamePanel.TILE_SIZE/5;
+                y = mainGamePanel.TILE_SIZE/2;
+                g2d.drawString(text, x, y);
+
+                // display player HUD
+                //hp
+                g2d.setFont(arial_40);
+                g2d.setColor(new Color(168, 168, 168));
+
+                text = "HP: " + mainGamePanel.player.hp;
+                x = (int)(mainGamePanel.TILE_SIZE*0.2);
+                y = (int)(mainGamePanel.TILE_SIZE*1.5);
                 g2d.drawString(text, x, y);
 
                 // exit to main menu

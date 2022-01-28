@@ -14,6 +14,7 @@ public class Entitys {
     Rectangle solidArea;
     boolean collisionOn = false;
     int solidAreaDefaultX, solidAreaDefaultY;
+    int hp;
 
     public int getWorldX() {
         return worldX;
