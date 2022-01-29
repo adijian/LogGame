@@ -64,11 +64,11 @@ class MainGamePanel extends JPanel implements Runnable {
         switch(gameState) {
             case startState:
                 ui.gameStartButton.setBounds(ui.startButtonRectangle);
-                ui.gameStartButton.setContentAreaFilled(false);
-                ui.gameStartButton.setBorderPainted(false);
-                ui.gameStartButton.setOpaque(false);
+                configureButton(ui.gameStartButton);
                 ui.gameStartButton.addActionListener(e -> gameState = enumGameState.initialGameState);
                 this.add(ui.gameStartButton);
+                ui.draw(g2d);
+
 
                 break;
 
@@ -76,19 +76,44 @@ class MainGamePanel extends JPanel implements Runnable {
                 tilesManager.draw(g2d);
                 player.draw(g2d);
 
+                // exit to menu button
                 ui.exitToMainMenuButton.setBounds(panelWidth - (TILE_SIZE*2), 0, 500,500);
-                ui.exitToMainMenuButton.setContentAreaFilled(false);
-                ui.exitToMainMenuButton.setBorderPainted(false);
-                ui.exitToMainMenuButton.setOpaque(false);
+                configureButton(ui.exitToMainMenuButton);
                 ui.exitToMainMenuButton.addActionListener(e -> gameState = enumGameState.startState);
                 this.add(ui.exitToMainMenuButton);
 
+                if(ui.inventoryOpen) {
+                    ui.inventoryCloseButton.setBounds(ui.inventoryButtonRectangle);
+                    configureButton(ui.inventoryCloseButton);
+                    ui.inventoryCloseButton.addActionListener(e -> {
+                        ui.inventoryOpen = false;
+                        ui.inventoryCloseButton.setBounds(0,0,0,0);
+                    });
+                }
+                else {
+                    ui.inventoryOpenButton.setBounds(ui.inventoryButtonRectangle);
+                    configureButton(ui.inventoryOpenButton);
+                    ui.inventoryOpenButton.addActionListener(e -> {
+                        ui.inventoryOpen = true;
+                        ui.inventoryOpenButton.setBounds(0,0,0,0);
+                    });
+
+                }
+                this.add(ui.inventoryCloseButton);
+                this.add(ui.inventoryOpenButton);
+
+                ui.draw(g2d);
                 break;
         }
-        ui.draw(g2d);
 
         g2d.dispose();
 
+    }
+
+    public void configureButton(JButton button) {
+        button.setContentAreaFilled(false);
+        button.setBorderPainted(false);
+        button.setOpaque(false);
     }
 
     @Override

@@ -13,10 +13,15 @@ class UIDisplay {
     Font arial_40B;
     Font arial_40;
     Font arial_20;
-    JButton gameStartButton;
     Rectangle startButtonRectangle;
+    Rectangle inventoryRectangle;
+    Rectangle inventoryButtonRectangle;
 
+    JButton gameStartButton;
     JButton exitToMainMenuButton;
+    JButton inventoryOpenButton;
+    JButton inventoryCloseButton;
+    boolean inventoryOpen = false;
 
     BufferedImage bearImage;
 
@@ -30,9 +35,15 @@ class UIDisplay {
                 (int) (mainGamePanel.panelHeight / 5),
                 (int) (mainGamePanel.getTILE_SIZE() * 20),
                 (int) (mainGamePanel.getTILE_SIZE() * 2));
-        gameStartButton = new JButton();
+        inventoryRectangle = new Rectangle(2, mainGamePanel.TILE_SIZE*4,(int)(mainGamePanel.TILE_SIZE * 2.5), mainGamePanel.TILE_SIZE * 3);
+        inventoryButtonRectangle = new Rectangle(2, mainGamePanel.TILE_SIZE*4, mainGamePanel.TILE_SIZE, mainGamePanel.TILE_SIZE);
 
+        gameStartButton = new JButton();
+        inventoryOpenButton = new JButton();
+        inventoryCloseButton = new JButton();
         exitToMainMenuButton = new JButton();
+
+
         try {
             bearImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/misc/clipart.png")));
         } catch(IOException e) {
@@ -113,7 +124,21 @@ class UIDisplay {
                 y = (int)(mainGamePanel.TILE_SIZE*1.5);
                 g2d.drawString(text, x, y);
 
+
+                // button rectangle
+                g2d.setColor(new Color(0, 0, 0));
+                g2d.fill(inventoryButtonRectangle);
+
+                // collapsable interface
+;                if(inventoryOpen) {
+                    // wrapper rectangle
+                    g2d.setColor(new Color(168, 168, 168, 100));
+                    inventoryRectangle.setBounds(2, mainGamePanel.TILE_SIZE*4,(int)(mainGamePanel.TILE_SIZE * 5), mainGamePanel.TILE_SIZE * 6);
+                    g2d.fill(inventoryRectangle);
+                }
+
                 // exit to main menu
+                g2d.setColor(new Color(52, 52, 52));
                 text = "Exit";
                 x = mainGamePanel.panelWidth - (mainGamePanel.TILE_SIZE*2);
                 y = mainGamePanel.TILE_SIZE;

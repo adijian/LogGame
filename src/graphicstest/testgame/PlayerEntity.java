@@ -51,8 +51,8 @@ class PlayerEntity extends Entitys{
         try{
             this.up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/boy_up_1.png")));
             this.up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/boy_up_2.png")));
-            this.down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/boy_down_1.png")));
-            this.down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/boy_down_2.png")));
+            this.down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/bear_down_1.png")));
+            this.down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/bear_down_2.png")));
             this.left1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/boy_left_1.png")));
             this.left2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/boy_left_2.png")));
             this.right1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/boy_right_1.png")));
